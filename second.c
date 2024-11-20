@@ -3,6 +3,6 @@ int main()
 {
   for(int i = 0; i < 100; i++)
   printf("Hello LCBians\n");
-  pf("Hello");
+  printf("Hello");
   return 0;
 }
