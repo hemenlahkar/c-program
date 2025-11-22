@@ -91,7 +91,7 @@ int getResult(Mayabini *m, long long n)
     TEMP_RESULT[0] = m[0];
     for (i = 0; i < n - 1; i++)
     {
-        if (!strcmp(m[i].lyrics[m[i].no_of_words - 1], m[i + 1].lyrics[0]))
+        if (!strcmp(strlwr(m[i].lyrics[m[i].no_of_words - 1]), strlwr(m[i + 1].lyrics[0])))
         {
             TEMP_RESULT[x++] = m[i + 1];
         }
