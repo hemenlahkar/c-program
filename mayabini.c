@@ -98,12 +98,20 @@ int getResult(Mayabini *m, long long n)
         else
         {
             current_MCS = calculateTotalMCS(TEMP_RESULT);
-            x = 1;
             if (current_MCS > max_MCS)
             {
                 copyResult(TEMP_RESULT);
                 max_MCS = current_MCS;
             }
+            else if(current_MCS == max_MCS)
+            {
+                int length_of_final;
+                for(length_of_final = 0; FINAL_RESULT[length_of_final].p_id != 0; length_of_final++);
+                if(length_of_final < x)
+                    copyResult(TEMP_RESULT);
+            }
+            
+            x = 1;
             TEMP_RESULT[0] = m[i + 1];
         }
     }
