@@ -19,14 +19,13 @@ Mayabini *takeInput(long long *count)
     scanf("%lld", count);
     long long n = *count;
     long long k = 0;
-    getchar();
-    getchar();
     m = (Mayabini *)malloc(n * sizeof(Mayabini));
     while (k < n)
     {
         char c;
         scanf("%d %ld", &(m[k].p_id), &(m[k].MCS));
         int i = 0, j = 0;
+        getchar();
         while ((c = getchar()) != '\n')
         {
             if (j == 0 && (c == ' ' || c == '\t' || c == 0 || c == '\n'))
@@ -53,7 +52,7 @@ Mayabini *takeInput(long long *count)
 void copyResult(Mayabini source[])
 {
     long i;
-    for (i = 0; source[i].p_id != 0; i++)
+    for (i = 0L; source[i].p_id != 0; i++)
     {
         FINAL_RESULT[i] = source[i];
         source[i].p_id = 0;
@@ -74,7 +73,7 @@ void copyResult(Mayabini source[])
 long calculateTotalMCS(Mayabini m[])
 {
     long sum = 0L;
-    for (long long i = 0; m[i].p_id != 0; i++)
+    for (long long i = 0LL; m[i].p_id != 0; i++)
     {
         sum += m[i].MCS;
     }
@@ -90,7 +89,7 @@ int getResult(Mayabini *m, long long n)
     long max_MCS = 0, current_MCS = 0;
 
     TEMP_RESULT[0] = m[0];
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n - 1; i++)
     {
         if (!strcmp(m[i].lyrics[m[i].no_of_words - 1], m[i + 1].lyrics[0]))
         {
@@ -111,10 +110,18 @@ int getResult(Mayabini *m, long long n)
     current_MCS = calculateTotalMCS(TEMP_RESULT);
     if (current_MCS > max_MCS)
         copyResult(TEMP_RESULT);
+    
     free(TEMP_RESULT);
     return 1;
 }
 
+void displayResult()
+{
+    printf("\n%ld\n", calculateTotalMCS(FINAL_RESULT));
+    for(long i = 0L; FINAL_RESULT[i].p_id != 0; i++)
+        printf("%3d ", FINAL_RESULT[i].p_id);
+    putchar('\n');
+}
 
 int main()
 {
@@ -122,13 +129,8 @@ int main()
     long long n;
     pages = takeInput(&n);
     getResult(pages, n);
-    printf("\n\nFinal result: ");
-    for (int i = 0; FINAL_RESULT[i].p_id != 0; i++)
-    {
-        printf("\n%d   %d   ", FINAL_RESULT[i].p_id, FINAL_RESULT[i].MCS);
-        for (int j = 0; j < FINAL_RESULT[i].no_of_words; j++)
-            printf("%s ", FINAL_RESULT[i].lyrics[j]);
-    }
+    
+    displayResult();
 
     return 0;
 }
